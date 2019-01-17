@@ -6,7 +6,7 @@ import numpy as np
 x = np.eye(3)
 print(x)
 print("")
-
+ 
 # 2.
 x = np.random.randint(10, size=(3, 3))
 print(x)
@@ -22,7 +22,7 @@ print("")
 # 4.
 x = np.zeros((9,9))
 print(x)
-
+testing
 
 # 5.
 
