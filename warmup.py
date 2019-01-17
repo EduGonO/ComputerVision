@@ -22,7 +22,6 @@ print("")
 # 4.
 x = np.zeros((9,9))
 print(x)
-testing
 
 # 5.
 
