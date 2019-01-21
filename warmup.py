@@ -89,5 +89,3 @@ print("Mean: ", np.mean(x), "\n")
 plt.plot(x)
 plt.ylabel('some numbers')
 plt.show()
-
-testing
