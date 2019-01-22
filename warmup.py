@@ -1,6 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
-import cv2 as cv2
+import cv2
 
 # Numpy warmup
 # @Eduardo Gonzalez
@@ -88,7 +88,7 @@ print("STD: ", np.std(x))
 print("Mean: ", np.mean(x), "\n")
 
 plt.plot(x)
-plt.ylabel('some numbers')
+plt.axis([0, 1000, 0, 1.5])
 plt.show()
 
 image = cv2.imread('https://github.com/EduGonO/WebProgramming/blob/master/8f.jpg?raw=true')
