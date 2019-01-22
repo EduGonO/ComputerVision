@@ -91,7 +91,7 @@ plt.plot(x)
 plt.axis([0, 1000, 0, 2])
 plt.show()
 
-image = cv2.imread('https://github.com/EduGonO/WebProgramming/blob/master/8f.jpg?raw=true')
+image = cv2.imread('/Users/edu/github/ComputerVision/8f.jpg')
 gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 cv2.imwrite('gray.png',gray)
 cv2.imshow('gray',gray)
