@@ -79,22 +79,34 @@ print(x, "\n")
 # with a mean of 0 and standard derivation of 0.5
 print("Matplotlib\n")
 
-std = 0.5
-m = 0
+std = 0.5 #Standard Deviation
 
-x = np.random.normal(m, std, 1000)
+x = np.random.normal(0, std, 1000)
 
 print("STD: ", np.std(x))
 print("Mean: ", np.mean(x), "\n")
 
 plt.plot(x)
-plt.axis([0, 1000, 0, 2])
+plt.axis([0, 1000, 0, 2]) # Exclude negative numbers on the plot
 plt.show()
 
+#------------------------------------------------------------
+
+# OpenCV
+
+# Import an image, covert to grayscale, export it as .png and find the
+# brightest and darkest pixel values of the image
+print("OpenCV\n")
+
 image = cv2.imread('/Users/edu/github/ComputerVision/8f.jpg')
-#gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY) # Convert to grayscale
 #cv2.imwrite('gray.png',gray)
-im = cv2.resize(image, (1000, 823))
-cv2.imshow('gray',im)
-cv2.waitKey(0)
-cv2.destroyAllWindows()
+imageGrey = cv2.resize(gray, (1000, 823)) # Resize since the image is too big
+
+cv2.imshow('gray',imageGrey) # Display image
+
+print("Brightest Pixel: ")
+print("Brightest Pixel: ", "\n")
+
+cv2.waitKey(0) # Waits for a key to be pressed
+cv2.destroyAllWindows() # Closes all windows 
