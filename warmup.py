@@ -95,5 +95,5 @@ image = cv2.imread('https://github.com/EduGonO/WebProgramming/blob/master/8f.jpg
 gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 cv2.imwrite('gray.png',gray)
 cv2.imshow('gray',gray)
-cv2.waitKey(0)                 # Waits forever for user to press any key
+cv2.waitKey(0)
 cv2.destroyAllWindows()
