@@ -88,7 +88,7 @@ print("STD: ", np.std(x))
 print("Mean: ", np.mean(x), "\n")
 
 plt.plot(x)
-plt.axis([0, 1000, 0, 1.5])
+plt.axis([0, 1000, 0, 2])
 plt.show()
 
 image = cv2.imread('https://github.com/EduGonO/WebProgramming/blob/master/8f.jpg?raw=true')
