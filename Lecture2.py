@@ -12,13 +12,22 @@ import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
 import imageio
 
+def gaussian_kernel(size, size_y=None):
+    size = int(size)
+    if not size_y:
+        size_y = size
+    else:
+        size_y = int(size_y)
+    x, y = np.mgrid[-size:size+1, -size_y:size_y+1]
+    g = np.exp(-(x**2/float(size)+y**2/float(size_y)))
+    return g / g.sum()
 
 from mpl_toolkits.mplot3d import Axes3D
 
 ##  load and display an image
 baby = misc.imread('/Users/edu/github/ComputerVision/im/8f.jpg',flatten=1)
 plt.imshow(baby,cmap=plt.cm.gray)
-plt.show()
+#plt.show()
 
 # here is the code to resize a big image, it is not effective in the lena case
 # baby_resized = misc.imresize(baby, (512,512), interp='bilinear', mode=None)
@@ -26,10 +35,10 @@ plt.show()
 # plt.show()
 
 # print out some information
-print (baby.shape)
-print(baby.dtype)
-print(baby.max)
-print(baby.min)
+print ("Shape: ", baby.shape)
+print("Type: ", baby.dtype)
+print("Max: ", baby.max())
+print("Min: ", baby.min())
 
 # change brightness
 # darker
@@ -42,11 +51,11 @@ plt.imshow(baby_dark, vmin = 0, vmax = 128,cmap=plt.cm.gray)
 
 #
 ## create a surface plot of the image
-x, y = np.ogrid[0:baby.shape[0], 0:baby.shape[1]]
-fig=plt.figure()
-ax = Axes3D(fig)
-ax.plot_surface(x,y,baby,rstride=4, cstride=4, cmap=plt.cm.jet, linewidth=0.2)
-plt.show()
+# x, y = np.ogrid[0:baby.shape[0], 0:baby.shape[1]]
+# fig=plt.figure()
+# ax = Axes3D(fig)
+# ax.plot_surface(x,y,baby,rstride=4, cstride=4, cmap=plt.cm.jet, linewidth=0.2)
+#plt.show()
 
 
 # # Image convolution
@@ -58,22 +67,22 @@ k = np.ones((5,5))/25
 # convolve with the image
 b= ndimage.filters.convolve(baby,k)
 b = misc.toimage(b)
-b.save('baby_blur.png')
+#b.save('baby_blur.png')
 plt.imshow(b, cmap=plt.cm.gray)
-plt.show()
+#plt.show()
 # #
 # #
 # ## or you can use uniform_filter, same as filters.convolve with a uniform kernel
-local_mean = ndimage.uniform_filter(baby, size=5)
-plt.imshow(local_mean, cmap=plt.cm.gray)
-plt.show()
+# local_mean = ndimage.uniform_filter(baby, size=5)
+# plt.imshow(local_mean, cmap=plt.cm.gray)
+# plt.show()
 
 # # #
 # ## sharpening a blurred image
 blurred = ndimage.gaussian_filter(baby, 5)
 print(blurred)
 plt.imshow(blurred, cmap=plt.cm.gray)
-plt.show()
+#plt.show()
 
 filter_blurred= ndimage.gaussian_filter(blurred,1)
 alpha = 30
@@ -90,7 +99,7 @@ plt.subplot(133)
 plt.imshow(sharpened, cmap=plt.cm.gray)
 plt.axis('off')
 
-# plt.show()
+plt.show()
 #
 #
 # #==============================================================================
