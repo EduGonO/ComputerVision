@@ -105,8 +105,8 @@ imageGrey = cv2.resize(gray, (1000, 823)) # Resize since the image is too big
 
 cv2.imshow('gray',imageGrey) # Display image
 
-print("Brightest Pixel: ", imageGrey.max)
-print("Darkest Pixel: ", imageGrey.min, "\n")
+print("Brightest Pixel: ", imageGrey.max())
+print("Darkest Pixel: ", imageGrey.min(), "\n")
 
 cv2.waitKey(0) # Waits for a key to be pressed
 cv2.destroyAllWindows() # Closes all windows
