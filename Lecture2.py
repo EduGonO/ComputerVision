@@ -10,12 +10,13 @@ from scipy import ndimage
 from scipy import misc
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
+import imageio
 
 
 from mpl_toolkits.mplot3d import Axes3D
 
 ##  load and display an image
-baby = misc.imread('/Users/edu/github/ComputerVision/im/8f.jpg',flatten=1)
+baby = imageio.imread('/Users/edu/github/ComputerVision/im/8f.jpg',flatten=1)
 plt.imshow(baby,cmap=plt.cm.gray)
 plt.show()
 
@@ -26,9 +27,9 @@ plt.show()
 
 # print out some information
 print (baby.shape)
-#print baby.dtype
-#print baby.max()
-#print baby.min()
+print(baby.dtype)
+print(baby.max)
+print(baby.min)
 
 # change brightness
 # darker
