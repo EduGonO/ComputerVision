@@ -15,7 +15,7 @@ import matplotlib.image as mpimg
 from mpl_toolkits.mplot3d import Axes3D
 
 ##  load and display an image
-baby = misc.imread('Kaila.jpg',flatten=1)
+baby = misc.imread('/Users/edu/github/ComputerVision/im/8f.jpg',flatten=1)
 plt.imshow(baby,cmap=plt.cm.gray)
 plt.show()
 
@@ -36,7 +36,7 @@ plt.show()
 baby_dark = baby-125
 plt.imshow(baby_dark, vmin = 0, vmax = 128,cmap=plt.cm.gray)
 plt.show()
-misc.imwrite('/Users/edu/github/ComputerVision/8f.jpg', baby_dark)
+misc.imwrite('8fDark.jpg', baby_dark)
 
 #
 #
