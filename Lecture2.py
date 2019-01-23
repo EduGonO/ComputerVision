@@ -25,7 +25,7 @@ plt.show()
 #plt.show()
 
 # print out some information
-#print baby.shape
+print (baby.shape)
 #print baby.dtype
 #print baby.max()
 #print baby.min()
@@ -36,16 +36,16 @@ plt.show()
 baby_dark = baby-125
 plt.imshow(baby_dark, vmin = 0, vmax = 128,cmap=plt.cm.gray)
 plt.show()
-misc.imwrite('8fDark.jpg', baby_dark)
+# misc.imwrite('8fDark.jpg', baby_dark)
 
 #
 #
 ## create a surface plot of the image
-#x, y = np.ogrid[0:baby.shape[0], 0:baby.shape[1]]
-#fig=plt.figure()
-#ax = Axes3D(fig)
-#ax.plot_surface(x,y,baby,rstride=4, cstride=4, cmap=plt.cm.jet, linewidth=0.2)
-#plt.show()
+x, y = np.ogrid[0:baby.shape[0], 0:baby.shape[1]]
+fig=plt.figure()
+ax = Axes3D(fig)
+ax.plot_surface(x,y,baby,rstride=4, cstride=4, cmap=plt.cm.jet, linewidth=0.2)
+plt.show()
 
 
 # # Image convolution
