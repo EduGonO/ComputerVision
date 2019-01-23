@@ -16,14 +16,14 @@ import imageio
 from mpl_toolkits.mplot3d import Axes3D
 
 ##  load and display an image
-baby = imageio.imread('/Users/edu/github/ComputerVision/im/8f.jpg',flatten=1)
+baby = misc.imread('/Users/edu/github/ComputerVision/im/8f.jpg',flatten=1)
 plt.imshow(baby,cmap=plt.cm.gray)
 plt.show()
 
 # here is the code to resize a big image, it is not effective in the lena case
-#baby_resized = misc.imresize(baby, (512,512), interp='bilinear', mode=None)
-#plt.imshow(baby_resized,cmap=plt.cm.gray)
-#plt.show()
+# baby_resized = misc.imresize(baby, (512,512), interp='bilinear', mode=None)
+# plt.imshow(baby_resized,cmap=plt.cm.gray)
+# plt.show()
 
 # print out some information
 print (baby.shape)
@@ -36,10 +36,10 @@ print(baby.min)
 
 baby_dark = baby-125
 plt.imshow(baby_dark, vmin = 0, vmax = 128,cmap=plt.cm.gray)
-plt.show()
+#plt.show()
 # misc.imwrite('8fDark.jpg', baby_dark)
 
-#
+
 #
 ## create a surface plot of the image
 x, y = np.ogrid[0:baby.shape[0], 0:baby.shape[1]]
@@ -54,41 +54,41 @@ plt.show()
 # # there are many ways to do convolution in Python.
 # # I use scipy.ndimage.filters.convolve
 # # Other choices are: scipy.signal.convolve2d
-# k = np.ones((5,5))/25
-# # convolve with the image
-# b= ndimage.filters.convolve(baby,k)
-# b = misc.toimage(b)
-# b.save('baby_blur.png')
-# plt.imshow(b, cmap=plt.cm.gray)
-# plt.show()
+k = np.ones((5,5))/25
+# convolve with the image
+b= ndimage.filters.convolve(baby,k)
+b = misc.toimage(b)
+b.save('baby_blur.png')
+plt.imshow(b, cmap=plt.cm.gray)
+plt.show()
 # #
 # #
 # ## or you can use uniform_filter, same as filters.convolve with a uniform kernel
-# local_mean = ndimage.uniform_filter(baby, size=5)
-# plt.imshow(local_mean, cmap=plt.cm.gray)
-# plt.show()
+local_mean = ndimage.uniform_filter(baby, size=5)
+plt.imshow(local_mean, cmap=plt.cm.gray)
+plt.show()
 
 # # #
 # ## sharpening a blurred image
-# blurred = ndimage.gaussian_filter(baby, 5)
-# print blurred
-# plt.imshow(blurred, cmap=plt.cm.gray)
-# plt.show()
+blurred = ndimage.gaussian_filter(baby, 5)
+print(blurred)
+plt.imshow(blurred, cmap=plt.cm.gray)
+plt.show()
 
-# filter_blurred= ndimage.gaussian_filter(blurred,1)
-# alpha = 30
-# sharpened = blurred + alpha * (blurred - filter_blurred)
+filter_blurred= ndimage.gaussian_filter(blurred,1)
+alpha = 30
+sharpened = blurred + alpha * (blurred - filter_blurred)
 # #
 # # plotting3 figures in one subplot
-# plt.figure(figsize=(12, 4))
-# plt.subplot(131)
-# plt.imshow(baby, cmap=plt.cm.gray, vmin = 0, vmax = 255)
-# plt.subplot(132)
-# plt.imshow(blurred,cmap=plt.cm.gray)
-# plt.axis('off')
-# plt.subplot(133)
-# plt.imshow(sharpened, cmap=plt.cm.gray)
-# plt.axis('off')
+plt.figure(figsize=(12, 4))
+plt.subplot(131)
+plt.imshow(baby, cmap=plt.cm.gray, vmin = 0, vmax = 255)
+plt.subplot(132)
+plt.imshow(blurred,cmap=plt.cm.gray)
+plt.axis('off')
+plt.subplot(133)
+plt.imshow(sharpened, cmap=plt.cm.gray)
+plt.axis('off')
 
 # plt.show()
 #
