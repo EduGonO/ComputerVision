@@ -1,27 +1,30 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-# Numpy warmup
+# Homework 1
 # @Eduardo Gonzalez
 
-m = np.array([[1,2, 3],[4, 5, 6],[7, 8, 9]])
+m = np.array([[1,2, 3],[4, 5, 6],[7, 85, 9]])
 a = np.array([1, 2, 3])
 b = np.array([4, 5, 6])
 c = np.array([7, 8, 9])
 
-print "m: "
-print m, "\n"
+print("m: ")
+print(m, "\n")
 
-print "a: ", a, "\n"
-print"b: ", b, "\n"
-print"c: ", c, "\n"
+print("a:", a, "\n")
+print("b:", b, "\n")
+print("c:", c, "\n")
 
 # Dot product of a and b
 aDotb = np.dot(a, b)
-print "Dot Product of a and b: ", aDotb
+print("Dot Product of a and b:", aDotb, "\n")
 
-print "Element Wise Product of a and b: ", a*b
+print("Element Wise Product of a and b:", np.multiply(a, b), "\n")
 
 # e = (m.transpose(0,1,3,2) * a).transpose(0,1,3,2)
+e = a*m;
+print("m*a:")
+print(e,"\n")
 
-print a*m
+print(np.sort(e))
