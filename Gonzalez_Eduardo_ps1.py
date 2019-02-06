@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 # Homework 1
 # @Eduardo Gonzalez
 
-m = np.array([[1,2, 3],[4, 5, 6],[7, 85, 9]])
+m = np.array([[1,2, 3],[4, 5, 6],[7, 8, 9]])
 a = np.array([1, 2, 3])
 b = np.array([4, 5, 6])
 c = np.array([7, 8, 9])
