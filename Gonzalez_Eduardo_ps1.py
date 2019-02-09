@@ -4,6 +4,9 @@ from scipy import misc
 import matplotlib.pyplot as plt
 import cv2
 import os
+import skimage as io
+from skimage import io
+
 
 # Homework 1
 # @Eduardo Gonzalez
@@ -78,7 +81,7 @@ for row in range(len(im1)):
 
 cv2.imwrite(new)
 '''
-folder = os.listdir('George_W_Bush')
+folder = os.listdir('/Users/edu/github/ComputerVision/George_W_Bush')
 
 # to store average later
 average_array = np.zeros((250, 250, 3), dtype=np.float64)
