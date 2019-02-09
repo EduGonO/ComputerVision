@@ -1,5 +1,6 @@
 import numpy as np
 from numpy import matlib
+from scipy import misc
 import matplotlib.pyplot as plt
 import cv2
 
@@ -52,12 +53,28 @@ print("OpenCV\n")
 image1 = np.float64(cv2.imread('/Users/edu/github/ComputerVision/im/image1.jpg'))
 image2 = np.float64(cv2.imread('/Users/edu/github/ComputerVision/im/image2.jpg'))
 
-cv2.imshow('image 1',image1) # Display image
-cv2.imshow('image 2',image2) # Display image
+cv2.imshow("image 1",image1) # Display image
+cv2.imshow("image 2",image2) # Display image
 
 im1 = cv2.normalize(image1, np.zeros((500, 500)), 0, 1, cv2.NORM_MINMAX)
 im2 = cv2.normalize(image2, np.zeros((500, 500)), 0, 1, cv2.NORM_MINMAX)
 
-juntas = cv2.normalize((im1 + im2), np.zeros((500, 500)), 0, 1, cv2.NORM_MINMAX)
 
-cv2.imwrite('two.jpg', juntas)
+# Cut the images in halves
+i1 = im1[:, :250]
+i2 = im2[:, 250:]
+
+halves = np.concatenate((i1, i2), axis=1)
+
+cv2.imwrite('halves.jpg', halves)
+
+new = np.empty((500, 500))
+for row in range(len(im1)):
+    if row % 2 == 1: # es par
+        new[row] = im1[row]
+    else: # Se mueve de 1 y ya no es par
+        new[row] = im2[row]
+
+cv2.imwrite(new)
+
+grey = cv2.cvtColor(new, cv2.COLOR_BGR2GRAY)
