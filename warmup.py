@@ -98,7 +98,7 @@ plt.show()
 # brightest and darkest pixel values of the image
 print("OpenCV\n")
 
-image = cv2.imread('/Users/edu/github/ComputerVision/8f.jpg')
+image = cv2.imread('/Users/edu/github/ComputerVision/im/8f.jpg')
 gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY) # Convert to grayscale
 #cv2.imwrite('gray.png',gray)
 imageGrey = cv2.resize(gray, (1000, 823)) # Resize since the image is too big

@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import cv2
 
 # Homework 1
 # @Eduardo Gonzalez
@@ -28,3 +29,15 @@ print("m*a:")
 print(e,"\n")
 
 print(np.sort(e))
+
+## Part 2
+
+image = cv2.imread('/Users/edu/github/ComputerVision/im/8f.jpg')
+cv2.imshow('image', image)
+
+# Convert to double presicion
+img = image.astype(float)
+print(img)
+
+b = (img - np.min(img))/np.ptp(img)
+print(b)
