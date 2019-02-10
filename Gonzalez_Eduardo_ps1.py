@@ -1,5 +1,7 @@
 import numpy as np
 from numpy import matlib
+import skimage as io
+
 from scipy import misc
 import matplotlib.pyplot as plt
 import cv2
@@ -7,10 +9,9 @@ import os
 import skimage as io
 from skimage import io
 
-
 # Homework 1
 # @Eduardo Gonzalez
-'''
+
 m = np.array([[1,2, 3],[4, 5, 6],[7, 8, 9]])
 
 a = np.array([1, 2, 3])
@@ -73,60 +74,35 @@ cv2.imwrite('halves.jpg', halves)
 
 # One and one
 new = np.empty((500, 500))
-for row in range(len(im1)):
+for row in range(lenght(im1)):
     if row % 2 == 1: # es par
         new[row] = im1[row]
     else: # Se mueve de 1 y ya no es par
         new[row] = im2[row]
 
 cv2.imwrite(new)
-'''
-folder = os.listdir('/Users/edu/github/ComputerVision/George_W_Bush')
+
+#-------------------------------------------------------------------
+
+#     Part 3
+
+#-------------------------------------------------------------------
+
+folder = os.listdir('/Users/edu/github/ComputerVision/George_W_Bush/')
 
 # to store average later
-average_array = np.zeros((250, 250, 3), dtype=np.float64)
+blank = np.zeros(250, 250, 3)
+blank = np.float64(blank)
 
-# images_array requires an array that holds the multiple arrays of the images
-images_array = np.float64(np.array([np.array(io.imread('George_W_Bush/' + fname)) for fname in folder]))
+# an array of a lot of arrays for the pictures
+pics = np.array([np.array(io.imread('George_W_Bush/' + fname)) for fname in folder])
+# double presicion like in exercice 2
+allpics = np.float64(pics)
 
-# use numpy's provided mean function to calculate average (average_array =  average_array + images_array / total
-# would have worked as well ; don't forget to cast back into uint8 in order to properly display images)
-# average_array = np.array(np.mean(images_array, axis=0))
-average_array_type = np.array(np.mean(images_array, axis=0), dtype=np.uint8)
-# plt.imshow(average_array, cmap=plt.cm.gray)
-# plt.show()
-# plt.imshow(average_array_type, cmap=plt.cm.gray)
-# plt.show()
+# We average all the pictures of bush
+average = np.array(np.mean(allpics, axis=0))
 
-# saving image
-# io.imsave('average_image_result.jpg', average_array_type)
+io.imsave('average.jpg', average)
 
-# to display all the images on plots
-plt.figure(figsize=(20, 4))
-plt.subplot(141)
-
-# Added together
-plt.imshow(smashed, cmap=plt.cm.gray)
-plt.axis('off')
-plt.title('added together', fontsize=20)
-plt.subplot(142)
-
-# 2 crops together
-plt.imshow(newImage, cmap=plt.cm.gray)
-plt.axis('off')
-plt.title('2 crops together', fontsize=20)
-plt.subplot(143)
-
-# For every row
-plt.imshow(frankensteinImage2, cmap=plt.cm.gray)
-plt.axis('off')
-plt.title('2 birds in one', fontsize=20)
-plt.subplot(144)
-
-# Average Face
-plt.imshow(average_array_type)
-plt.axis('off')
-plt.title('the average face', fontsize=20)
-plt.subplot(144)
 
 plt.show()
