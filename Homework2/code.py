@@ -14,13 +14,13 @@ import math
 from scipy.ndimage import filters
 
 # ===  Problem 1: Warm Up ===
-# 1.1 loading the images
+# 1.1 loading the im
 #
-image1 = np.float64(misc.imread('images/peppers.png', flatten=1, mode='F'))
-image2 = np.float64(misc.imread('images/cheetah.png', flatten=1, mode='F'))
+image1 = np.float64(misc.imread('im/peppers.png', flatten=1, mode='F'))
+image2 = np.float64(misc.imread('im/cheetah.png', flatten=1, mode='F'))
 
 
-# 1.2 blur the images
+# 1.2 blur the im
 #
 gau_image1 = ndimage.gaussian_filter(image1, 7)
 gau_image2 = ndimage.gaussian_filter(image2, 7)
@@ -81,7 +81,7 @@ plt.show()
 
 # ===Problem 2: Histogram equilization ===
 
-im2 = np.float64(misc.imread('images/lowcontrast.jpg', flatten=1))
+im2 = np.float64(misc.imread('im/lowcontrast.jpg', flatten=1))
 # histogram
 frequencies, bins = numpy.histogram(im2, bins=numpy.arange(-0.5, 255.1, 0.5))
 
@@ -135,7 +135,7 @@ plt.show()
 
 
 # === Problem 3:  Separable filters ===
-im4 = np.float64(misc.imread('images/einstein.png', flatten=1))
+im4 = np.float64(misc.imread('im/einstein.png', flatten=1))
 
 gaussian_kernel = 1.0/256*numpy.array([[1,4,6,4,1],[4,16,24,16,4],[6,24,36,24,6],[4,16,24,16,4],[1,4,6,4,1]])
 gaussian_kernel_x = numpy.array([1,4,6,4,1])
@@ -215,7 +215,7 @@ plt.show()
 
 
 # === Problem 4 ===
-grascale = np.float64(misc.imread('images/zebra.png', flatten=1, mode='F'))
+grascale = np.float64(misc.imread('im/zebra.png', flatten=1, mode='F'))
 edge_horizont = ndimage.sobel(grascale, 0)
 edge_vertical = ndimage.sobel(grascale, 1)
 magnitude = np.hypot(edge_horizont, edge_vertical)
