@@ -14,14 +14,15 @@ import math
 from scipy.ndimage import filters
 
 # ===  Problem 1: Warm Up ===
-# 1.1 loading the im
+# 1.1 loading the images
 #
-image1 = np.float64(misc.imread('im/peppers.png', flatten=1, mode='F'))
+image1 = np.float64(misc.imread('peppers.png', flatten=1, mode='F'))
 image2 = np.float64(misc.imread('im/cheetah.png', flatten=1, mode='F'))
 
 
 # 1.2 blur the im
 #
+'''
 gau_image1 = ndimage.gaussian_filter(image1, 7)
 gau_image2 = ndimage.gaussian_filter(image2, 7)
 
@@ -240,3 +241,5 @@ plt.imshow(magnitude, cmap=plt.cm.gray)
 plt.title('all edges')
 plt.axis('off')
 plt.show()
+
+'''
