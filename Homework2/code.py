@@ -16,7 +16,7 @@ from scipy.ndimage import filters
 # ===  Problem 1: Warm Up ===
 # 1.1 loading the images
 #
-image1 = np.float64(misc.imread('peppers.png', flatten=1, mode='F'))
+image1 = np.float64(misc.imread('im/peppers.png', flatten=1, mode='F'))
 image2 = np.float64(misc.imread('im/cheetah.png', flatten=1, mode='F'))
 
 
