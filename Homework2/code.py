@@ -12,17 +12,23 @@ from scipy import ndimage
 from fractions import Fraction
 import math
 from scipy.ndimage import filters
+import imageio
 
 # ===  Problem 1: Warm Up ===
 # 1.1 loading the images
 #
-image1 = np.float64(misc.imread('im/peppers.png', flatten=1, mode='F'))
-image2 = np.float64(misc.imread('im/cheetah.png', flatten=1, mode='F'))
+image1 = cv2.imread('/Users/edu/github/ComputerVision/Homework2/im/peppers.png')
+image1 = cv2.cvtColor(image1, cv2.COLOR_BGR2GRAY)
+image1 = np.float64(image1)
+image2 = cv2.imread('im/cheetah.png')
+#image2.flatten()
+image2 = np.float64(image2)
+#image2 = np.float64(imageio.imread('/Users/edu/github/ComputerVision/Homework2/im/cheetah.png', as_grey=True, pilmode='F'))
 
 
 # 1.2 blur the im
 #
-'''
+
 gau_image1 = ndimage.gaussian_filter(image1, 7)
 gau_image2 = ndimage.gaussian_filter(image2, 7)
 
@@ -49,7 +55,7 @@ plt.title('image1_blurred', fontsize=10)
 plt.imshow(gau_image2, cmap=plt.cm.gray)
 plt.axis('off')
 plt.show()
-
+'''
 
 
 # 1.4 compute dft of the image
