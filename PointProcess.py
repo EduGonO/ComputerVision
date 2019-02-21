@@ -10,6 +10,7 @@ from scipy import misc
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg 
 
+heello world 
 
 from mpl_toolkits.mplot3d import Axes3D
 
