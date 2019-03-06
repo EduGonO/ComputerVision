@@ -8,8 +8,8 @@ from scipy import misc
 import matplotlib.pyplot as plt
 import numpy as np
 
-# read in an image using mis.
-img = misc.imread('einstein.png',flatten=1)
+# read in an image usingsi mis.
+img = misc.imread('/Users/edu/github/ComputerVision/Lect5_exercises/einstein.png',flatten=1)
 
 f = np.fft.fft2(img)
 fshift = np.fft.fftshift(f)
