@@ -9,6 +9,10 @@ from scipy import signal
 from scipy import misc
 import matplotlib.pyplot as plt
 
+
+gx,gy = gauss_derivative_kernels(3)
+
+
 # write a 2D gaussian kernal
 def matlab_style_gauss2D(shape=(3,3),sigma=1):
     m,n = [(ss-1.)/2. for ss in shape]
@@ -25,7 +29,7 @@ def gauss_derivative_kernels(size, sizey=None):
 
     return gx,gy    
     
-# computing derivatives     
+# computing derivatives     ˙
 def gauss_derivatives(im, n, ny=None):
     """ returns x and y derivatives of an image using gaussian 
         derivative filters of size n. The optional argument 
@@ -38,7 +42,7 @@ def gauss_derivatives(im, n, ny=None):
 
     return imx,imy
     
-gx,gy = gauss_derivative_kernels(3)
+
 
 
 def compute_harris_response(image):
