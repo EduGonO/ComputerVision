@@ -11,7 +11,7 @@ import matplotlib.pyplot as plt
 
 
 gx,gy = gauss_derivative_kernels(3)
-
+n
 
 # write a 2D gaussian kernal
 def matlab_style_gauss2D(shape=(3,3),sigma=1):
@@ -23,16 +23,16 @@ def matlab_style_gauss2D(shape=(3,3),sigma=1):
     if sumh != 0:
         h /= sumh
     return h
-    
+
 # construct derivative kernals from scratch
 def gauss_derivative_kernels(size, sizey=None):
 
-    return gx,gy    
-    
+    return gx,gy
+
 # computing derivatives     ˙
 def gauss_derivatives(im, n, ny=None):
-    """ returns x and y derivatives of an image using gaussian 
-        derivative filters of size n. The optional argument 
+    """ returns x and y derivatives of an image using gaussian
+        derivative filters of size n. The optional argument
         ny allows for a different size in the y direction."""
 
     gx,gy = gauss_derivative_kernels(n, sizey=ny)
@@ -41,12 +41,12 @@ def gauss_derivatives(im, n, ny=None):
     imy = signal.convolve(im,gy, mode='same')
 
     return imx,imy
-    
+
 
 
 
 def compute_harris_response(image):
-    """ compute the Harris corner detector response function 
+    """ compute the Harris corner detector response function
         for each pixel in the image"""
 
     #derivatives
@@ -56,31 +56,31 @@ def compute_harris_response(image):
     gauss = matlab_style_gauss2D((3,3),3)
 
     #compute components of the structure tensor
- 
+
     #determinant and trace
-   
+
 
     return Wdet / Wtr
 
 def get_harris_points(harrisim,min_dist=0, threshold=0.3):
     # find top corner candiates above a threshold
 
-    
-    #get the coordinates, all the non-zero components 
 
-    
+    #get the coordinates, all the non-zero components
+
+
     # ...add their values
 
-    
+
     # sort candidates in descending order of corner responses
 
-    
+
     # store allowed point locations in array
 
-    
+
     # select the best points taking min_dist into account
-    
-    
+
+
     return filtered_coords
 
 # plotting the corners onto the image
@@ -96,5 +96,3 @@ im = misc.imread('HarisCornerBuildling.png',flatten=1)
 harrisim = compute_harris_response(im)
 filtered_coords = get_harris_points(harrisim,12,0.2)
 plot_harris_points(im,filtered_coords)
-
-
