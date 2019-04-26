@@ -4,7 +4,7 @@ import cv2
 import numpy as np
 import matplotlib.pyplot as plt
 
-img = cv2.imread('Messi15.png', 0)
+img = cv2.imread('Messi15.png')
 
 # scaling is just resizing the image.
 height, width = img.shape[:2]

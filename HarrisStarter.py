@@ -11,7 +11,7 @@ import matplotlib.pyplot as plt
 
 
 gx,gy = gauss_derivative_kernels(3)
-n
+
 
 # write a 2D gaussian kernal
 def matlab_style_gauss2D(shape=(3,3),sigma=1):

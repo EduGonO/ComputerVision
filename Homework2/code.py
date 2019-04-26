@@ -1,7 +1,3 @@
-'''
-Solution
-
-'''
 import cv2
 import matplotlib.pyplot as plt
 from PIL import Image
@@ -14,48 +10,45 @@ import math
 from scipy.ndimage import filters
 import imageio
 
-# ===  Problem 1: Warm Up ===
-# 1.1 loading the images
-#
+# Problem 1
+
+# We read image 1
 image1 = cv2.imread('/Users/edu/github/ComputerVision/Homework2/im/peppers.png')
 image1 = cv2.cvtColor(image1, cv2.COLOR_BGR2GRAY)
 image1 = np.float64(image1)
-image2 = cv2.imread('im/cheetah.png')
-#image2.flatten()
+
+# We read image 2
+image2 = cv2.imread('/Users/edu/github/ComputerVision/Homework2/im/cheetah.png')
+image2 = cv2.cvtColor(image2, cv2.COLOR_BGR2GRAY)
 image2 = np.float64(image2)
-#image2 = np.float64(imageio.imread('/Users/edu/github/ComputerVision/Homework2/im/cheetah.png', as_grey=True, pilmode='F'))
+
+# We blur the images
+image1blurred = ndimage.gaussian_filter(image1, 7)
+image2blurred = ndimage.gaussian_filter(image2, 7)
 
 
-# 1.2 blur the im
-#
-
-gau_image1 = ndimage.gaussian_filter(image1, 7)
-gau_image2 = ndimage.gaussian_filter(image2, 7)
-
-
-# 1.3 display the image
-#
+# We display all the images
 plt.figure(1, figsize=(15, 5))
-plt.suptitle('problem 1.3', fontsize=20, fontweight='bold')
+plt.suptitle('Problem 1', fontsize=18)
 
 plt.subplot(1, 4, 1)
-plt.title('image1', fontsize=10)
+plt.title('Image 1')
 plt.imshow(image1, cmap=plt.cm.gray)
-plt.axis('off')
+
 plt.subplot(1, 4, 2)
-plt.title('image1_blurred', fontsize=10)
-plt.imshow(gau_image1, cmap=plt.cm.gray)
-plt.axis('off')
+plt.title('Image 1 (Blurred)')
+plt.imshow(image1blurred, cmap=plt.cm.gray)
+
 plt.subplot(1, 4, 3)
-plt.title('image2', fontsize=10)
+plt.title('Image 2')
 plt.imshow(image2, cmap=plt.cm.gray)
-plt.axis('off')
+
 plt.subplot(1, 4, 4)
-plt.title('image1_blurred', fontsize=10)
-plt.imshow(gau_image2, cmap=plt.cm.gray)
-plt.axis('off')
+plt.title('Image 2 (Blurred)')
+plt.imshow(image2blurred, cmap=plt.cm.gray)
+
 plt.show()
-'''
+
 
 
 # 1.4 compute dft of the image
@@ -64,26 +57,26 @@ plt.show()
 dft_image1 = np.fft.fft2(image1)
 dft_image1_shift = np.fft.fftshift(dft_image1)
 magnitude_spectrum_image1 = np.log(np.abs(dft_image1_shift))
+
 # image2
 dft_image2 = np.fft.fft2(image2)
 dft_image2_shift = np.fft.fftshift(dft_image2)
 magnitude_spectrum_image2 = np.log(np.abs(dft_image2_shift))
 
-
 # plot
 plt.figure(1, figsize=(15, 5))
-plt.suptitle('problem 1.4', fontsize=20, fontweight='bold')
+plt.suptitle('Problem 1 ()', fontsize=18)
 
 plt.subplot(1, 2, 1)
-plt.title('dtf_image1', fontsize=10)
+plt.title('dtf_image1')
 plt.imshow(magnitude_spectrum_image1, cmap=plt.cm.gray)
-plt.axis('off')
-plt.subplot(1, 2, 2)
-plt.title('dtf_image2', fontsize=10)
-plt.imshow(magnitude_spectrum_image2, cmap=plt.cm.gray)
-plt.axis('off')
-plt.show()
 
+plt.subplot(1, 2, 2)
+plt.title('dtf_image2')
+plt.imshow(magnitude_spectrum_image2, cmap=plt.cm.gray)
+
+plt.show()
+'''
 
 
 # ===Problem 2: Histogram equilization ===
