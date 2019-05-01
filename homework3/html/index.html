@@ -3,7 +3,7 @@
 <title>CS 479 Project 1 Hybrid Image</title>
 <link href='http://fonts.googleapis.com/css?family=Nunito:300|Crimson+Text|Droid+Sans+Mono' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" title="Default" href="styles/github.css">
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>  
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
 
 <link rel="stylesheet" href="highlighting/styles/default.css">
 <script src="highlighting/highlight.pack.js"></script>
@@ -30,7 +30,7 @@ h2 {
 	font-weight: normal;
 	font-size: 32px;
 	margin: 15px 0px 35px 0px;
-	color: #333;	
+	color: #333;
 	word-spacing: 3px;
 }
 
@@ -142,30 +142,79 @@ td img {
 <p style="font-size: 14px">Example of a right floating element.</p>
 </div>
 
-<p> 	Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+<p> 	My program consist of 5 main functions that process the images in order to
+	 produce a hybrid image. The images are first sent through a Fourier
+	 transformation that applies a Gaussian Filter Kernel, then processed to either
+	  a Low Pass function or a High Pass one. The program then combines those two
+		images to produce a hybrid image. Here's a list of the main functions: </p>
 
 <ol>
-<li>list element 1.</li>
-<li>list element 2.</li>
-<li>etc.</li>
+<li>Gaussian Filter Generator</li>
+<li>Discrete Fourier Transform Applier</li>
+<li>Low Pass Image Generator</li>
+<li>High Pass Image Generator</li>
+<li>Hybrid Image Generator</li>
 </ol>
 
-<p> 	Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+<p> 	Each function is implemented in a way that allows the user to simply call
+	 the Hybrid Image function. There is no need to manually create all the images,
+	  all the functions do that on their own. I initially wrote a program that did
+		this in just one function, but then I realized it is way easier to write the
+		individual steps as functions and also allowed me to debug my code way more easily.</p>
 
 <div style="clear:both">
-<h3>Example heading</h3>
-
-<p> 	Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-
 <h2>Example of code with highlighting</h2>
 The javascript in the <code>highlighting</code> folder is configured to do syntax highlighting in code blocks such as the one below.<p>
 
 <pre><code>
-%example code
-for i = 1:length(offset)
-    source = imread(sprintf('%s/source_%02d.jpg',data_dir,i));
-    mask   = imread(sprintf('%s/mask_%02d.jpg',data_dir,i));
-    target = imread(sprintf('%s/target_%02d.jpg',data_dir,i));
+
+	def gaussian_blur_kernel_2d(row, col, sigma, high):
+
+	    if row % 2 == 1:
+	        vCenter = int(row/2) + 1
+	    else:
+	        hCenter = int(row/2)
+
+	    if col % 2 == 1:
+	        hCenter = int(col/2) + 1
+	    else:
+	        hCenter = int(col/2)
+
+	    def gaussian(v,h):
+
+	        # ( -1 * (v-center^2 + h-center^2) ) / 2*sig^2
+	        coeff = math.exp(-1 * ((v - vCenter)**2 + (h - hCenter)**2) / (2 * sigma**2))
+
+	        if high:
+	            return (1-coeff)
+	        else:
+	            return coeff
+
+	    x = numpy.array([[gaussian(v,h) for h in range(col)] for v in range(row)])
+
+	    return x
+
+	# We use this to filter the matrix
+	def dft(matrix, matrix2):
+	   nDft = fftshift(fft2(matrix)) * matrix2
+	   return ifft2(ifftshift(nDft))
+
+	# This function creates a Low Pass Image
+	def lowPass(matrix, sigma):
+	   a, b = matrix.shape
+	   return dft(matrix, gaussian_blur_kernel_2d(a, b, sigma, high=False))
+
+	# This function creates a High Pass Image
+	def highPass(matrix, sigma):
+	   a, b = matrix.shape
+	   return dft(matrix, gaussian_blur_kernel_2d(a, b, sigma, high=True))
+
+
+	def hybridImage(highImgage, lowImgage, sigmaHigh, sigmaLow):
+	   high = highPass(highImgage, sigmaHigh)
+	   low = lowPass(lowImgage, sigmaLow)
+	   return high + low
+
 
 </code></pre>
 
@@ -175,25 +224,22 @@ for i = 1:length(offset)
 <tr>
 <td>
 <img src="placeholder.jpg" width="24%"/>
-<img src="placeholder.jpg"  width="24%"/>
-<img src="placeholder.jpg" width="24%"/>
-<img src="placeholder.jpg" width="24%"/>
+<img src="placeholder.jpg"  width="20%"/>
+<img src="placeholder.jpg" width="16%"/>
+<img src="placeholder.jpg" width="12%"/>
+<img src="placeholder.jpg" width="8%"/>
+<img src="placeholder.jpg" width="4%"/>
 </td>
 </tr>
 
-<tr>
-<td>
-<img src="placeholder.jpg" width="24%"/>
-<img src="placeholder.jpg"  width="24%"/>
-<img src="placeholder.jpg" width="24%"/>
-<img src="placeholder.jpg" width="24%"/>
-</td>
-</tr>
 
 </table>
 
 <div style="clear:both" >
-<p> 	Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+<p> 	I strugguled to make my functions work on all color channels, so I decided
+	 instead to deliver a working program that successfully manages to do the
+	 assignemnt's goal in a grayscale picture instead of turining in code that
+	 doesn't even run.</p>
 </div>
 </body>
 </html>
