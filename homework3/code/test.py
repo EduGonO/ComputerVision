@@ -8,7 +8,7 @@ import math
 def gaussian_blur_kernel_2d(row, col, sigma, high):
 
     if row % 2 == 1:
-        vCenter = int(row/2) + 1 
+        vCenter = int(row/2) + 1
     else:
         hCenter = int(row/2)
 
@@ -21,12 +21,12 @@ def gaussian_blur_kernel_2d(row, col, sigma, high):
 
         # ( -1 * (v-center^2 + h-center^2) ) / 2*sig^2
         coeff = math.exp(-1 * ((v - vCenter)**2 + (h - hCenter)**2) / (2 * sigma**2))
-      
+
         if high:
             return (1-coeff)
         else:
             return coeff
-    
+
     x = numpy.array([[gaussian(v,h) for h in range(col)] for v in range(row)])
 
     return x
@@ -56,4 +56,5 @@ p1 = misc.imread("/Users/edu/github/ComputerVision/homework3/data/cat.bmp", flat
 p2 = misc.imread("/Users/edu/github/ComputerVision/homework3/data/dog.bmp", flatten=True)
 
 hybrid = numpy.real(hybridImage(p1, p2, 25, 10))
+
 misc.imsave("hybridImage.png", hybrid)
