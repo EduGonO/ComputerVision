@@ -1,0 +1,301 @@
+<html>
+<head>
+<title>CS 476 Project 5 </title>
+<link href='http://fonts.googleapis.com/css?family=Nunito:300|Crimson+Text|Droid+Sans+Mono' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" title="Default" href="styles/github.css">
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+
+<link rel="stylesheet" href="highlighting/styles/default.css">
+<script src="highlighting/highlight.pack.js"></script>
+
+<style type="text/css">
+body {
+	margin: 0px;
+	width: 100%;
+	font-family: 'Crimson Text', serif;
+	font-size: 20px;
+	background: #fcfcfc;
+}
+h1 {
+	font-family: 'Nunito', sans-serif;
+	font-weight: normal;
+	font-size: 28px;
+	margin: 25px 0px 0px 0px;
+	text-transform: lowercase;
+
+}
+
+h2 {
+	font-family: 'Nunito', sans-serif;
+	font-weight: normal;
+	font-size: 32px;
+	margin: 15px 0px 35px 0px;
+	color: #333;
+	word-spacing: 3px;
+}
+
+h3 {
+	font-family: 'Nunito', sans-serif;
+	font-weight: normal;
+	font-size: 26px;
+	margin: 10px 0px 10px 0px;
+	color: #333;
+	word-spacing: 2px;
+}
+h4 {
+	font-family: 'Nunito', sans-serif;
+	font-weight: normal;
+	font-size: 22px;
+	margin: 10px 0px 10px 0px;
+	color: #333;
+	word-spacing: 2px;
+}
+
+h5 {
+	font-family: 'Nunito', sans-serif;
+	font-weight: normal;
+	font-size: 18px;
+	margin: 10px 0px 10px 0px;
+	color: #111;
+	word-spacing: 2px;
+}
+
+p, li {
+	color: #444;
+}
+
+a {
+	color: #DE3737;
+}
+
+.container {
+	margin: 0px auto 0px auto;
+	width: 960px;
+}
+
+#header {
+	background: #333;
+	width: 100%;
+}
+
+#headersub {
+	color: #ccc;
+	width: 960px;
+	margin: 0px auto 0px auto;
+	padding: 20px 0px 20px 0px;
+}
+
+.chart {
+	width: 480px;
+}
+.lol {
+	font-size: 16px;
+	color: #888;
+	font-style: italic;
+}
+.sep {
+	height: 1px;
+	width: 100%;
+	background: #999;
+	margin: 20px 0px 20px 0px;
+}
+.footer{
+	font-size: 16px;
+}
+.latex {
+	width: 100%;
+}
+
+.latex img {
+	display: block;
+	margin: 0px auto 0px auto;
+}
+
+pre {
+	font-family: 'Droid Sans Mono';
+	font-size: 14px;
+}
+
+td img {
+  vertical-align: middle;
+}
+
+#contents a {
+}
+</style>
+<script type="text/javascript">
+    hljs.initHighlightingOnLoad();
+</script>
+</head>
+<body>
+<div id="header" >
+<div id="headersub">
+<h1>Eduardo Gonzalez <span style="color: #DE3737"></span></h1>
+</div>
+</div>
+<div class="container">
+<h2>CSC 479/679 AU / Project 5 </h2>
+
+<div style="float: right; padding: 0px">
+<img src="t0.3.png" width="45%"/>
+<p style="font-size: 14px">Image Feature</p>
+</div>
+
+<p> The program I did works in a special way that allowed me to better use my knowlege
+of what I have learned in class. In order to arrive to a final result, I devided my work
+into the following steps:</p>
+
+<ol>
+<li>Reading an image and detecting corners to find features</li>
+<li>Read the other image and do the same as step 1</li>
+<li>Match those features found</li>
+</ol>
+
+<p> The first part, which I found to be the most challenging part, consisted in finding
+the main features of a picture in order to be able to compare them later. I did this
+with the following code: </p>
+
+<div style="clear:both">
+<h2>Main code <code>features.py</code> </h2>
+
+<p> This code is run by typing <code>$ python features.py</code> in a terminal.
+</p>
+
+<pre><code>
+
+	def gaussianKernel(size):
+
+	    x, y = mgrid[-size:size+1, -size:size+1]
+	    g = exp(-(x**2/float(size)+y**2/float(size)))
+	    return g / g.sum()
+
+	def imageCorners(image):
+
+	    size = 3
+
+	    y, x = mgrid[-size:size+1, -size:size+1]
+
+	    # We create a gaussianX and a gaussianY
+	    gaussianX = - x * exp(-(x**2/float((0.5*size)**2)+y**2/float((0.5*size)**2)))
+	    gaussianY = - y * exp(-(x**2/float((0.5*size)**2)+y**2/float((0.5*size)**2)))
+
+	    imageX = signal.convolve(im, gaussianX, mode='same')
+	    imageY = signal.convolve(im, gaussianY, mode='same')
+
+	    # Gaussian filter to blur the image
+	    gaussian = gaussianKernel(3)
+
+	    # We combine the possible outcomes
+	    finalXX = signal.convolve(imageX*imageX, gaussian, mode='same')
+	    finalXY = signal.convolve(imageX*imageY, gaussian, mode='same')
+	    finalYY = signal.convolve(imageY*imageY, gaussian, mode='same')
+
+	    aux = finalXX * finalYY - finalXY**2
+
+	    return aux / (finalXX + finalYY)
+
+	def getPoints(im):
+
+	    # We find the coordanates for the top corner above 0.1 (Threshold)
+	    # Modify the Threshold to find more/less features
+	    corner = (im > max(im.ravel()) * 0.3).nonzero()
+	    arrayCoordinates = [(corner[0][k], corner[1][k]) for k in range(len(corner[0]))]
+
+	    # We fill an array with all the values we found
+	    val = argsort([im[j[0]][j[1]] for j in arrayCoordinates])
+
+	    # We create an array to store all, this also contains the min number of pixels
+	    # between points (I decided 10 pixels)
+	    pointsArray = zeros(im.shape)
+	    pointsArray[10:-10, 10:-10] = 1
+
+	    final = []
+
+	    for i in val:
+	        if pointsArray[arrayCoordinates[i][0]][arrayCoordinates[i][1]] == 1:
+	            final.append(arrayCoordinates[i]) # if == 1, append
+	            pointsArray[(arrayCoordinates[i][0]-10):(arrayCoordinates[i][0]+10),
+			(arrayCoordinates[i][1]-10):(arrayCoordinates[i][1]+10)] = 0
+
+	    return final
+
+
+</code></pre>
+
+<div style="clear:both" >
+<p> As you can see, I did not use a native gaussian filter applier given that I don't know
+why I got very weird results. This is why I decided to instead apply a kernel the
+way I did and base my results on X*X, X*Y and Y*Y combinations. For the purpose of
+showing my work, this is what happened when I ran my code with a simple Gaussian Convolution
+instead of the final solution I proposed </p>
+
+
+<table border=1>
+<tr>
+<td>
+<img float="center" src="NormalGaussian.png" width="40%"/>
+</td>
+</tr>
+</table>
+
+<p> I did the following part by modifying a bit what we saw in class. I had issues
+	figuring out why the other ways of doing this didn't work I was not understading
+	a lot. I figured I could use what I have leared to try to solve this better. First I
+created a corner function
+but modified the Threshold in order to ignore points that are not really useful.
+Here are some images from the results I got, with diferent Thresholds: </p>
+
+<h3>Output of different Thresholds (0.05, 0.1, 0.3, 0.5)</h3>
+
+<table border=1>
+<tr>
+<td>
+<img src="t0.05.png" width="24%"/>
+<img src="t0.1.png"  width="24%"/>
+<img src="t0.3.png"  width="24%"/>
+<img src="t0.5.png"  width="24%"/>
+</td>
+</tr>
+</table>
+
+<div style="clear:both" >
+
+<p> Here are the results with the other picture of Notre Dame: </p>
+
+<h3>Output of different Thresholds (0.05, 0.1, 0.3)</h3>
+
+<table border=1>
+<tr>
+<td>
+<img src="t20.05.png" width="33%"/>
+<img src="t20.1.png"  width="33%"/>
+<img src="t20.3.png"  width="33%"/>
+</td>
+</tr>
+</table>
+
+<div style="clear:both" >
+<p> I don't know why the results are a bit different but I decided to use the First
+image with a 0.3 Threshold and the second image with a 0.1 Threshold, this images: </p>
+
+<table border=1>
+<tr>
+<td>
+<img src="t20.1.png" width="33%"/>
+<img src="t0.3.png"  width="33%"/>
+</td>
+</tr>
+</table>
+
+<p> After much trial and error I was not able to match the two features together.
+	I realized that I might have something to do with the way I located all the
+	features but I simply found the way discribed in the Word document to be confusing
+	and I didn' really understand how to aproach it. I decided that using my skills
+	learned in class to do the getFeatures and getInterestPoints in a function and 
+	to have some results would be better than writing some code that is not able
+	to work and show me a basic result.
+</table> </p>
+
+</div>
+</body>
+</html>
